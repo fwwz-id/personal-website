@@ -1,0 +1,29 @@
+.text-ring {
+  position: absolute;
+  overflow: hidden;
+}
+
+.text-ring [style*="--index"] {
+  --inner-angle: calc((360 / var(--total)) * 1deg);
+  --radius: calc((var(--character-width, 1) / sin(var(--inner-angle))) * -1ch);
+  font-weight: bold;
+  text-transform: uppercase;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%)
+    rotate(calc(var(--inner-angle) * var(--index)))
+    translateY(var(--radius, -5ch));
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .text-ring {
+    animation: spin 6s infinite linear;
+  }
+
+  @keyframes spin {
+    to {
+      rotate: -360deg;
+    }
+  }
+}
