@@ -91,7 +91,7 @@ export default function Home() {
             width: "100%",
             stagger: 0.15,
           })
-          .to(".link", { opacity: 1, stagger: 0.2 }),
+          .to(".gsap-opac", { opacity: 1, stagger: 0.2 }),
         ">-2.5"
       );
 
@@ -179,8 +179,38 @@ export default function Home() {
         </p>
       </div>
 
-      <div className="absolute bottom-10 font-extrabold text-2xl">
+      <div className="flex items-center gap-x-5 absolute bottom-10 font-extrabold text-2xl">
         <Links gltl={gltl} />
+
+        <div
+          className="gsap-opac opacity-0 flex items-center justify-center gap-x-4 border rounded-full px-3 py-2 cursor-pointer border-opacity-20 border-stone-800 dark:border-white"
+          onClick={() =>
+            window.open(
+              "https://www.linkedin.com/in/fawwaz-abdurrahim-07153b247/",
+              "_blank"
+            )
+          }
+        >
+          <div className="relative h-2">
+            <div className="absolute w-0.5 p-1 bg-green-500 animate-ping rounded-full" />
+            <div className="absolute w-0.5 p-1 bg-green-500 rounded-full" />
+          </div>
+          <p className="font-mono text-xs flex gap-x-2">
+            open to work
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="1em"
+              height="1em"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="none"
+                stroke="currentColor"
+                d="M9 15v3c0 .943 0 1.414-.293 1.707C8.414 20 7.943 20 7 20H6c-.943 0-1.414 0-1.707-.293C4 19.414 4 18.943 4 18v-1c0-.943 0-1.414.293-1.707C4.586 15 5.057 15 6 15zm6-11h5v5m0-5L9 15"
+              ></path>
+            </svg>
+          </p>
+        </div>
       </div>
     </div>
   );
@@ -202,7 +232,7 @@ const Links = ({
   return (
     <ul className="relative font-normal flex gap-x-6 text-sm sm:text-xl">
       <li
-        className="link opacity-0 duration-300 cursor-pointer"
+        className="gsap-opac opacity-0 duration-300 cursor-pointer"
         onClick={() => {
           replay();
 

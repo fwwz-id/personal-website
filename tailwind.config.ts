@@ -12,6 +12,7 @@ const config: Config = {
       backgroundImage: {
         "noise-pattern":
           "url(https://res.cloudinary.com/diquhbfvi/image/upload/v1709180419/personal-website/noise.webp)",
+        jakarta: "url(/pexels-tom-fisk.webp)",
       },
       fontFamily: {
         sans: ["var(--font-inter)"],

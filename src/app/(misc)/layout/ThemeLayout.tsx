@@ -14,10 +14,16 @@ const ThemeLayout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <>
-      <div className="relative container mx-auto z-30">
+      <div
+        className="relative container mx-auto z-30"
+        data-scroll-section
+        data-scroll
+      >
         <button
           className="absolute top-10 sm:top-28 right-10 sm:right-28 text-4xl text-yellow-400"
           onClick={toggleTheme}
+          data-scroll-section
+          data-scroll
         >
           {isDark ? <HalfMoonIcon /> : <SunIcon />}
         </button>
