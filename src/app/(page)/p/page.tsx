@@ -3,7 +3,6 @@
 import { useEffect, useRef } from "react";
 import Image from "next/image";
 
-import BlackAndWhiteImage from "@/public/pexels-tom-fisk.webp";
 import ScrollSmooth from "../../(misc)/components/ScrollSmooth";
 import { useScramble } from "use-scramble";
 import useAnimation from "./useAnimation";
@@ -70,7 +69,9 @@ const Page = () => {
         <div className="relative overflow-hidden">
           <Image
             className="bw-img w-8/12 h-[500px] md:h-full md:max-h-[800px] object-cover mx-auto my-12 opacity-0 grayscale"
-            src={BlackAndWhiteImage}
+            width={1654}
+            height={800}
+            src="https://res.cloudinary.com/diquhbfvi/image/upload/w_1654/h_858/f_auto,q_auto:low/v1/personal-website/ltppaxhoiqdljub320b8.avif"
             alt="Photo by Tom Fisk: https://www.pexels.com/photo/aerial-view-of-cityscape-2116721/"
             priority
           />
