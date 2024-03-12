@@ -72,6 +72,7 @@ const Page = () => {
             className="bw-img w-8/12 h-[500px] md:h-full md:max-h-[800px] object-cover mx-auto my-12 opacity-0 grayscale"
             src={BlackAndWhiteImage}
             alt="Photo by Tom Fisk: https://www.pexels.com/photo/aerial-view-of-cityscape-2116721/"
+            priority
           />
           <div className="container mx-auto px-4">
             <p className="location max-w-fit text-xs sm:text-lg relative opacity-0 text-white">
