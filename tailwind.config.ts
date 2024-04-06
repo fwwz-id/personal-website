@@ -11,7 +11,7 @@ const config: Config = {
     extend: {
       backgroundImage: {
         "noise-pattern":
-          "url(https://res.cloudinary.com/diquhbfvi/image/upload/v1709180419/personal-website/noise.webp)",
+          "url(https://res.cloudinary.com/diquhbfvi/image/upload/fl_lossy,q_10/v1709180419/personal-website/noise.gif)",
         jakarta: "url(/pexels-tom-fisk.webp)",
       },
       fontFamily: {
