@@ -31,7 +31,9 @@ const ThemeToggle = () => {
         yoyo: true,
         repeat: 1,
         ease: "power2.inOut",
-        onComplete: () => gsap.set(body, { clearProps: "transform" }),
+        onComplete: () => {
+          gsap.set(body, { clearProps: "transform" });
+        },
       }
     );
   };
@@ -47,7 +49,7 @@ const ThemeToggle = () => {
   return (
     <button
       onClick={toggleTheme}
-      className="brutalist-card p-3 bg-background border border-foreground hover:bg-accent hover:text-accent-foreground transition-all duration-300 group"
+      className="cursor-pointer brutalist-card p-3 bg-background border border-foreground hover:bg-accent hover:text-accent-foreground transition-all duration-300 group"
       aria-label="Toggle theme"
     >
       {theme === "dark" ? (

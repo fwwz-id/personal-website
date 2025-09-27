@@ -1,0 +1,430 @@
+/* tailwind.css — v4 style */
+@import "tailwindcss";
+@import "katex/dist/katex.min.css";
+
+/*
+ * Update your Tailwind globals.css to include the 
+ * following code. This will ensure that the
+ * Streamdown styles are applied to your project.
+ * 
+ * Make sure the path matches the location of the
+ * node_modules folder in your project i.e.
+ * @source "<path-to-node_modules>/node_modules/streamdown/dist/index.js";
+ */
+@source "../../node_modules/streamdown/dist/index.js";
+
+/* --- v4 tokens replacing your theme.extend & fonts/colors/radius/screens --- */
+@theme {
+  /* fonts (enables class: font-grotesk, font-mono) */
+  --font-grotesk: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* colors (enables bg-*, text-*, border-*) */
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+
+  /* sidebar color tokens */
+  --color-sidebar: hsl(var(--sidebar-background, var(--background)));
+  --color-sidebar-foreground: hsl(var(--sidebar-foreground, var(--foreground)));
+  --color-sidebar-primary: hsl(var(--sidebar-primary, var(--primary)));
+  --color-sidebar-primary-foreground: hsl(
+    var(--sidebar-primary-foreground, var(--primary-foreground))
+  );
+  --color-sidebar-accent: hsl(var(--sidebar-accent, var(--accent)));
+  --color-sidebar-accent-foreground: hsl(
+    var(--sidebar-accent-foreground, var(--accent-foreground))
+  );
+  --color-sidebar-border: hsl(var(--sidebar-border, var(--border)));
+  --color-sidebar-ring: hsl(var(--sidebar-ring, var(--ring)));
+
+  --shadow-brutalist: var(--shadow-brutalist);
+  --shadow-electric: var(--shadow-electric);
+  --shadow-minimal: var(--shadow-minimal);
+
+  /* radius → enables rounded, rounded-md/lg/sm */
+  --radius: var(--radius);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+
+  /* breakpoints (for container + responsive utilities) */
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1400px; /* matches your config */
+}
+
+/* --- your HSL variables (keep or adjust) --- */
+@layer base {
+  :root {
+    /* raw HSL tokens */
+    --electric-blue: 195 100% 50%;
+    --pure-black: 0 0% 0%;
+    --pure-white: 0 0% 100%;
+    --subtle-gray: 0 0% 96%;
+
+    --background: var(--pure-white);
+    --foreground: var(--pure-black);
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 0%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 0%;
+    --primary: 0 0% 0%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 195 100% 50%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 40%;
+    --accent: 195 100% 50%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 0%;
+    --input: 0 0% 95%;
+    --ring: 195 100% 50%;
+    --radius: 0.75rem; /* base radius */
+
+    /* shadows if you're using them later */
+    --shadow-brutalist: 4px 4px 0px var(--color-foreground);
+    --shadow-electric: 0 0 20px hsl(var(--electric-blue) / 0.3);
+    --shadow-minimal: 0 1px 3px hsl(var(--pure-black) / 0.1);
+
+    /* Gradients */
+    --gradient-electric: linear-gradient(
+      135deg,
+      hsl(var(--electric-blue)),
+      hsl(195 100% 60%)
+    );
+    --gradient-minimal: linear-gradient(
+      180deg,
+      hsl(var(--pure-white)),
+      hsl(var(--subtle-gray))
+    );
+  }
+  .dark {
+    --background: 0 0% 3%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 3%;
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 8%;
+    --muted-foreground: 0 0% 60%;
+    --accent: 195 100% 50%;
+    --accent-foreground: 0 0% 3%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 98%;
+    --input: 0 0% 15%;
+    --ring: 195 100% 50%;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  button {
+    cursor: pointer;
+  }
+}
+
+/* --- container utility (center + padding 2rem, max at 2xl:1400px) --- */
+.container {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: 2rem;
+}
+@media (min-width: 640px) {
+  .container {
+    max-width: 640px;
+  }
+}
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+  }
+}
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+  }
+}
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
+  }
+}
+@media (min-width: 1400px) {
+  .container {
+    max-width: 1400px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fade-in-up {
+    animation: none;
+    transform: none;
+    opacity: 1;
+  }
+}
+
+/* --- keyframes from your config --- */
+@layer utilities {
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(32px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+}
+
+/* Components */
+@layer components {
+  /* Article typography tweaks (readable + brutalist headings) */
+  article.prose h1,
+  article.prose h2,
+  article.prose h3 {
+    font-family: var(--font-grotesk);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+  }
+  article.prose h1 { margin-top: 3rem; margin-bottom: 1.25rem; }
+  article.prose h2 { margin-top: 2.5rem; margin-bottom: 1rem; }
+  article.prose h3 { margin-top: 2rem; margin-bottom: 0.75rem; }
+  article.prose p { margin-bottom: 1rem; }
+  article.prose ul { list-style: disc; margin-left: 1.25rem; margin-bottom: 1rem; }
+  article.prose ol { list-style: decimal; margin-left: 1.25rem; margin-bottom: 1rem; }
+  /* Blog article code block adjustments */
+  article.prose pre {
+    padding: 1.25rem 1.5rem; /* more breathing room */
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem; /* extra vertical spacing */
+  }
+  /* If a language badge is present, add bottom padding so it doesn't overlap */
+  article.prose pre.has-code-lang {
+    padding-bottom: 2.25rem;
+  }
+
+  /* Copy button styling; shown on hover only */
+  .code-copy-btn {
+    box-shadow: var(--shadow-brutalist);
+    pointer-events: none; /* enable only on hover */
+    transform: translateY(-2px) scale(0.98);
+  }
+  pre:hover > .code-copy-btn {
+    opacity: 1 !important;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+  }
+
+  /* Language badge */
+  .code-lang {
+    box-shadow: var(--shadow-brutalist);
+    pointer-events: none; /* don't block text selection */
+  }
+  /* Grainy gradient: subtle gradient + fine-grain tile */
+  .grainy-gradient {
+    /* gradient first, then a tiny repeating noise tile */
+    background-image: radial-gradient(
+        120% 100% at 50% 0%,
+        hsl(var(--background)) 0%,
+        hsl(var(--muted)) 100%
+      ),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-repeat: no-repeat, repeat;
+    background-size: cover, 160px 160px; /* small tile for fine grain */
+    background-position: center, center;
+    background-blend-mode: normal, soft-light; /* gentle grain overlay */
+  }
+
+  /* Slightly tweak blend for dark theme so grain stays subtle */
+  .dark .grainy-gradient {
+    background-blend-mode: normal, overlay;
+  }
+
+  /* Electric variant using your tokenized gradient */
+  .grainy-gradient-electric {
+    background-image: var(--gradient-electric),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-repeat: no-repeat, repeat;
+    background-size: cover, 160px 160px;
+    background-position: center, center;
+    background-blend-mode: normal, soft-light;
+  }
+
+  .dark .grainy-gradient-electric {
+    background-blend-mode: normal, overlay;
+  }
+  .brutalist-heading {
+    @apply font-grotesk font-bold uppercase tracking-tight;
+    text-shadow: 2px 2px 0px hsl(var(--pure-black) / 0.1);
+  }
+
+  /* Interactive Elements */
+  .brutalist-card {
+    @apply bg-background border-2 border-foreground shadow-brutalist transition-all duration-300 hover:-translate-x-1 hover:-translate-y-1 hover:shadow-minimal;
+  }
+
+  .electric-text {
+    @apply text-transparent bg-clip-text;
+    background: var(--gradient-electric);
+  }
+
+  .brutalist-card {
+    @apply bg-background border-2 border-foreground transition-all duration-300;
+    box-shadow: var(--shadow-brutalist);
+  }
+
+  .brutalist-card:hover {
+    @apply -translate-x-1 -translate-y-1;
+    box-shadow: 8px 8px 0px hsl(var(--foreground));
+  }
+
+  .electric-hover {
+    @apply transition-all duration-300 relative overflow-hidden;
+  }
+
+  .electric-hover::before {
+    @apply absolute inset-0 bg-accent opacity-0 transition-opacity duration-300;
+    content: "";
+  }
+
+  .electric-hover:hover::before {
+    @apply opacity-10;
+  }
+
+  .fade-in-up {
+    @apply opacity-0 translate-y-8;
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+
+  .stagger-1 {
+    animation-delay: 0.1s;
+  }
+  .stagger-2 {
+    animation-delay: 0.2s;
+  }
+  .stagger-3 {
+    animation-delay: 0.3s;
+  }
+  .stagger-4 {
+    animation-delay: 0.4s;
+  }
+
+  .brutalist-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8;
+  }
+}
+
+/* --- animation utilities (v4: use @utility to name classes) --- */
+@utility animate-accordion-down {
+  animation: accordion-down 0.2s ease-out both;
+}
+@utility animate-accordion-up {
+  animation: accordion-up 0.2s ease-out both;
+}
+
+/* --- grain overlay canvas layering --- */
+@layer components {
+  .grain-layer {
+    position: fixed;
+    inset: 0;
+    z-index: 0; /* sits beneath content wrapper we set to z-10 */
+    pointer-events: none;
+    mix-blend-mode: difference; /* subtle in light theme */
+  }
+  .dark .grain-layer {
+    mix-blend-mode: exclusion; /* gentle on dark backgrounds */
+  }
+}
+
+/* --- scanlines + glitch layers --- */
+@layer components {
+  /* Fixed, pointer-less horizontal scanlines */
+  .scanline-layer {
+    position: fixed;
+    inset: 0;
+    z-index: 1; /* above grain */
+    pointer-events: none;
+    /* Overlay blend darkens underlying content slightly for the dark line */
+    mix-blend-mode: overlay;
+    /* slow vertical drift of the pattern for a living display feel */
+    animation: scanline-move var(--scanline-duration, 12s) linear infinite;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .scanline-layer,
+    .scanline-reduced-motion .scanline-layer {
+      animation: none !important;
+    }
+  }
+
+  @keyframes scanline-move {
+    from {
+      background-position-y: 0;
+    }
+    to {
+      background-position-y: var(--scanline-drift, 1px);
+    }
+  }
+
+  /* Occasional glitch stripes overlay */
+  .glitch-layer {
+    position: fixed;
+    inset: 0;
+    z-index: 2; /* above scanlines */
+    pointer-events: none;
+    mix-blend-mode: color-dodge; /* pop on both themes, still subtle */
+  }
+  .dark .glitch-layer {
+    mix-blend-mode: screen;
+  }
+}

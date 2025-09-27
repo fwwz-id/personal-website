@@ -1,3 +1,5 @@
+"use client";
+
 import { Github, Linkedin, ExternalLink } from "lucide-react";
 
 const Footer = () => {

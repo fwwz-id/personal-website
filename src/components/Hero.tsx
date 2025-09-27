@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SplitType from "split-type";
+import Link from "next/link";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -131,7 +132,7 @@ const Hero = () => {
       const bgElements = heroRef.current?.querySelectorAll(".bg-element");
       if (bgElements) {
         gsap.to(bgElements, {
-          y: "random(-20, 20)",
+          y: "random(-20, 100)",
           x: "random(-10, 10)",
           duration: "random(3, 6)",
           ease: "sine.inOut",
@@ -144,14 +145,6 @@ const Hero = () => {
 
     return () => ctx.revert();
   }, []);
-
-  const handleEmailClick = () => {
-    window.open("mailto:fwwz.dev.id@gmail.com", "_blank");
-  };
-
-  const handleWhatsAppClick = () => {
-    window.open("https://wa.me/1234567890", "_blank");
-  };
 
   const scrollToProjects = () => {
     const element = document.getElementById("projects");
@@ -187,8 +180,7 @@ const Hero = () => {
             className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-12"
           >
             Crafting digital experiences with TypeScript, Python, and
-            cutting-edge AI solutions. Currently building the future of SaaS
-            applications.
+            cutting-edge AI solutions. Available for Saas, web, and AI projects.
           </p>
 
           {/* CTA Buttons */}
@@ -197,23 +189,31 @@ const Hero = () => {
             className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16"
           >
             <Button
-              onClick={handleEmailClick}
+              asChild
               variant="default"
               size="lg"
               className="brutalist-card bg-foreground text-background hover:bg-foreground/90 font-grotesk uppercase tracking-wide px-8 py-4 text-lg"
             >
-              <Mail className="mr-2" />
-              Hire Me
+              <Link href="mailto:fwwz.dev.id@gmail.com">
+                <Mail className="mr-2" />
+                Hire Me
+              </Link>
             </Button>
 
             <Button
-              onClick={handleWhatsAppClick}
+              asChild
               variant="outline"
               size="lg"
               className="brutalist-card border-2 border-foreground bg-background hover:bg-foreground hover:text-background font-grotesk uppercase tracking-wide px-8 py-4 text-lg"
             >
-              <MessageCircle className="mr-2" />
-              WhatsApp
+              <Link
+                href="https://wa.me/+6289529050802"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <MessageCircle className="mr-2" />
+                WhatsApp
+              </Link>
             </Button>
           </div>
 

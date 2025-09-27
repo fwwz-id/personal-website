@@ -9,7 +9,7 @@ export default function useLenis() {
 
   useEffect(() => {
     function update(time: number) {
-      lenisRef.current?.lenis.raf(time * 1000);
+      lenisRef.current?.lenis?.raf(time * 1000);
     }
 
     gsap.ticker.add(update);
@@ -17,5 +17,5 @@ export default function useLenis() {
     return () => gsap.ticker.remove(update);
   }, []);
 
-  return <ReactLenis root options={{ autoRaf: false, smoothWheel: true, syncTouch: true, lerp: 5 }} ref={lenisRef} />;
+  return <ReactLenis root options={{ autoRaf: false, smoothWheel: true, syncTouch: true, duration: 2 }} ref={lenisRef} />;
 }

@@ -1,13 +1,19 @@
-import { useState } from "react";
+"use client";
+
 import { Menu, X } from "lucide-react";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 import ThemeToggle from "./ThemeToggle";
 
 const Navigation = () => {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
 
   const scrollTo = (id: string) => {
-    const element = document.getElementById(id);
-    element?.scrollIntoView({ behavior: "smooth" });
+    router.push(`/#${id}`, {
+      scroll: true,
+    });
     setIsOpen(false);
   };
 
@@ -21,7 +27,7 @@ const Navigation = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-sm border-b border-foreground">
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          <button 
+          <button
             onClick={() => scrollTo("hero")}
             className="font-grotesk font-bold text-xl uppercase tracking-tight hover:text-accent transition-colors"
           >
@@ -40,6 +46,12 @@ const Navigation = () => {
                   {item.label}
                 </button>
               ))}
+              <Link
+                href="/blog"
+                className="font-grotesk font-medium text-sm uppercase tracking-wide hover:text-accent transition-colors electric-hover px-4 py-2"
+              >
+                BLOG
+              </Link>
             </nav>
             <ThemeToggle />
           </div>
@@ -47,10 +59,7 @@ const Navigation = () => {
           {/* Mobile Menu Button & Theme Toggle */}
           <div className="md:hidden flex items-center space-x-3">
             <ThemeToggle />
-            <button
-              className="p-2"
-              onClick={() => setIsOpen(!isOpen)}
-            >
+            <button className="p-2" onClick={() => setIsOpen(!isOpen)}>
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
@@ -69,6 +78,12 @@ const Navigation = () => {
                   {item.label}
                 </button>
               ))}
+              <Link
+                href="/blog"
+                className="font-grotesk font-medium text-lg uppercase tracking-wide hover:text-accent transition-colors text-left"
+              >
+                BLOG
+              </Link>
             </div>
           </div>
         )}
