@@ -29,11 +29,13 @@ export async function generateMetadata({
       description: post.description,
       publishedTime: post.date,
       url: `/blog/${post.slug}`,
+      images: [{ url: `/blog/${post.slug}/opengraph-image` }],
     },
     twitter: {
       card: "summary_large_image",
       title: post.title,
       description: post.description,
+      images: [`/blog/${post.slug}/opengraph-image`],
     },
     alternates: { canonical: `/blog/${post.slug}` },
   };

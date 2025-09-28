@@ -158,7 +158,6 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> 
   } catch {
     // ignore and fall back to scanning
     console.warn(`Blog post not found at direct path: ${directPath}`);
-    return null;
   }
 
   const posts = await getAllBlogPosts();

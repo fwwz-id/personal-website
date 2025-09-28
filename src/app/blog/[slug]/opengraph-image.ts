@@ -1,5 +1,13 @@
 import { generateOGImage } from "~/lib/og-generator";
-import { getBlogPostBySlug } from "../helper";
+import { getAllBlogPostsMeta, getBlogPostBySlug } from "../helper";
+
+export const dynamic = "force-static";
+export const revalidate = false;
+
+export async function generateStaticParams() {
+  const posts = await getAllBlogPostsMeta();
+  return posts.map((p) => ({ slug: p.slug }));
+}
 
 export default async function Image({
   params,
