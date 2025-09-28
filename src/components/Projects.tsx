@@ -143,6 +143,8 @@ const Projects = () => {
             >
               <div className="aspect-video overflow-hidden bg-muted relative">
                 <Image
+                  width={650}
+                  height={650}
                   src={project.image}
                   alt={project.title}
                   className="w-full h-full object-cover"
