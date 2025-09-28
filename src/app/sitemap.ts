@@ -15,7 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.5,
     },
     {
-      url: `https://${process.env.VERCEL_PRODUCTION_URL || 'fwwz.id'}/blog/how-do-i-learn-rag`,
+      url: `https://${process.env.VERCEL_PRODUCTION_URL || 'fwwz.id'}/blog/rag-vs-mcp`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
