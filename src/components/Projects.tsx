@@ -4,6 +4,8 @@ import SplitType from "split-type";
 import gsap from "gsap";
 
 import projects from "~/content/projects";
+import Link from "next/link";
+import Image from "next/image";
 
 const Projects = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -140,7 +142,7 @@ const Projects = () => {
               className="project-card brutalist-card group cursor-pointer overflow-hidden relative"
             >
               <div className="aspect-video overflow-hidden bg-muted relative">
-                <img
+                <Image
                   src={project.image}
                   alt={project.title}
                   className="w-full h-full object-cover"
@@ -151,12 +153,20 @@ const Projects = () => {
                       VIEW PROJECT
                     </p>
                     <div className="flex gap-4 justify-center">
-                      <button className="p-3 bg-background text-foreground rounded hover:bg-accent transition-colors">
+                      <Link
+                        href={project.github}
+                        target="_blank"
+                        className="p-3 bg-background text-foreground rounded hover:bg-accent transition-colors"
+                      >
                         <Github size={20} />
-                      </button>
-                      <button className="p-3 bg-background text-foreground rounded hover:bg-accent transition-colors">
+                      </Link>
+                      <Link
+                        href={project.live}
+                        target="_blank"
+                        className="p-3 bg-background text-foreground rounded hover:bg-accent transition-colors"
+                      >
                         <ExternalLink size={20} />
-                      </button>
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -168,12 +178,20 @@ const Projects = () => {
                     {project.title}
                   </h3>
                   <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <button className="p-2 hover:text-accent transition-colors">
+                    <Link
+                      href={project.github}
+                      target="_blank"
+                      className="p-2 hover:text-accent transition-colors"
+                    >
                       <Github size={20} />
-                    </button>
-                    <button className="p-2 hover:text-accent transition-colors">
+                    </Link>
+                    <Link
+                      href={project.live}
+                      target="_blank"
+                      className="p-2 hover:text-accent transition-colors"
+                    >
                       <ExternalLink size={20} />
-                    </button>
+                    </Link>
                   </div>
                 </div>
 

@@ -1,0 +1,165 @@
+---
+slug: rag-vs-mcp
+title: "RAG vs MCP: Understanding the Difference"
+description: "A practical guide to Retrieval-Augmented Generation (RAG) and Model Context Protocol (MCP), what they are, how they differ, and how they work together with examples."
+date: 2025-09-27
+author: Fawwaz Abdurrahim
+readTime: 7 min read
+thumbnail: https://images.unsplash.com/photo-1668450433152-e56d7e8fe4ee?q=80&w=650&auto=format&fit=crop
+tags: ["RAG", "MCP", "LLM", "AI Agents", "Chatbot"]
+---
+
+## Introduction
+
+Modern AI systems often face two big challenges:  
+1. How to give accurate answers grounded in real data.  
+2. How to safely interact with external tools and APIs.  
+
+Two concepts are at the center of these solutions: **Retrieval-Augmented Generation (RAG)** and **Model Context Protocol (MCP)**.  
+They are related but solve different problems. Understanding their roles helps clarify how today’s AI agents are built.
+
+## What is RAG?
+
+**Retrieval-Augmented Generation (RAG)** is a technique that improves an AI’s answers by retrieving relevant information from an external knowledge base, such as documents, databases, or APIs, before generating a response.  
+
+This allows the AI to move beyond the static training data it was built on, reducing hallucinations and providing up-to-date, context-rich answers.
+
+### Why RAG Matters
+
+LLMs are powerful, but they can only respond based on what they were trained on. With RAG, you can connect them to your own data sources: company policies, research papers, or customer documentation. This makes them more useful in real-world scenarios.
+
+## What is MCP?
+
+**Model Context Protocol (MCP)** is a **standardized communication protocol** that defines how AI applications (clients) can interact with external services (servers).  
+
+It is not a model or a technique, but a set of rules. MCP uses JSON-RPC (2.0) for handling requests and responses, which means every interaction between an LLM (client) and an MCP server follows a structured JSON format for making remote procedure calls.
+
+**Example JSON-RPC 2.0 request and response:**
+```json
+// Request: Claude (MCP client) asking GitHub MCP server to create a pull request
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "create_pull_request",
+  "params": {
+    "repo": "fwwz/awesome-app",
+    "branch": "feature-x",
+    "title": "Add new feature"
+  }
+}
+
+// Response: GitHub MCP server returns the result
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "url": "https://github.com/fwwz/awesome-app/pull/42",
+    "status": "success"
+  }
+}
+```
+
+In other words:  
+- **RAG is about context**: fetching relevant knowledge.  
+- **MCP is about connectivity**: providing a safe, standardized way to access external resources.
+
+## Key Differences at a Glance
+
+| Feature | RAG (Retrieval-Augmented Generation) | MCP (Model Context Protocol) |
+| :--- | :--- | :--- |
+| **Core Concept** | A **technique** to ground LLM responses in external data. | A **protocol** for connecting LLMs to external tools, APIs, or data sources. |
+| **Primary Goal** | Improve accuracy and reduce hallucinations. | Provide a **safe, extensible, standardized** bridge between LLMs and external systems. |
+| **How It Works** | 1. Retrieve relevant documents from a knowledge base. <br /> 2. Add them to the model’s context. <br /> 3. Generate a grounded response. | 1. LLM (client) sends a JSON-RPC request. <br /> 2. MCP server calls the underlying service or API. <br /> 3. Server returns result to the client. |
+| **Analogy** | A student writing a report: go to the library, read references, then write. | A universal power adapter: safely connect to any outlet (tool or API). |
+| **Relationship** | RAG is a **pattern** that may use MCP as its foundation. | MCP is a **framework** that can enable RAG and many other applications. |
+
+## How They Work Together: Example
+
+Imagine an AI assistant that answers questions about your company’s documentation.
+
+**Without MCP**  
+You would write custom code connecting the AI directly to a vector database. This is brittle, hard to maintain, and poses security risks.
+
+**With MCP**  
+```txt
+User: "What is our vacation policy?"
+
+Claude (MCP client):
+  → sends request { "action": "search_docs", "params": {"query": "vacation policy"} }
+
+MCP Documentation Server:
+  → queries internal knowledge base
+  → returns relevant HR policy document
+
+Claude:
+  → uses returned context to generate a grounded answer
+````
+
+This is a RAG system built on top of MCP.
+
+## Real Example: GitHub and Claude
+
+MCP is not limited to RAG. For example, if you want Claude to open a pull request on GitHub:
+
+```txt
+Claude (MCP client):
+  → sends request { "action": "create_pull_request", "params": {
+      "repo": "fwwz/awesome-app",
+      "branch": "feature-x",
+      "title": "Add new feature"
+    }}
+
+MCP GitHub Server:
+  → translates request into GitHub REST API call
+  → authenticates securely
+  → creates pull request
+  → returns PR link
+
+Claude:
+  → responds with "I have opened a pull request: <link>"
+```
+
+Instead of coding custom integrations for each LLM, MCP provides a standardized interface that any compatible model can use. For example, once you have a GitHub MCP server, Claude, GPT-4, or any other MCP-enabled LLM can interact with GitHub through the same endpoint.
+
+A practical demonstration of this can be found in this [Reddit post](https://www.reddit.com/r/ClaudeAI/comments/1ixuiih/showed_off_claude_37_sonnet_in_a_vibe_sesh_to_my/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button), where Claude seamlessly interacts with GitHub's API through MCP. 
+
+This standardization showcases two key benefits of MCP:
+1. **Interoperability**: Write once, use with any compatible LLM
+2. **Security**: All API interactions are handled by the MCP server, not directly by the LLM
+
+## Practical Use Cases of MCP
+
+MCP servers can expose many different tools:
+
+* **Flight Booking Tool**: interact with multiple airline APIs through one interface
+* **Calculator Tool**: ensure math is executed correctly
+* **Weather Tool**: fetch live weather updates securely
+* **Calendar Tool**: read and update schedules
+* **Filesystem Tool**: safely browse and edit files in a sandbox
+
+By abstracting away API differences, MCP allows AI agents to operate more like advanced automation scripts that can think.
+
+## Key Takeaways
+
+* **RAG** is a technique for grounding LLM responses with external data.
+* **MCP** is a protocol that standardizes how LLMs connect to tools and data.
+* Together, they enable AI agents that are accurate, extensible, and safe.
+* While REST APIs already exist, MCP introduces a consistent structure that LLMs can natively understand.
+
+## Conclusion
+
+RAG and MCP are not competing ideas, they complement each other.
+
+* RAG focuses on *what* the model does: improve answers with the right context.
+* MCP focuses on *how* the model connects: safely and in a standardized way.
+
+As AI agents evolve, expect MCP to play a growing role in connecting LLMs to the real world, with RAG as one of its most important applications.
+
+## Resources
+
+* [Model Context Protocol Official Site](https://modelcontextprotocol.io/)
+* [MCP GitHub Repository](https://github.com/modelcontextprotocol)
+* [YouTube: Introduction to MCP with Lab Environment (KodeKloud)](https://youtu.be/RhTiAOGwbYE?si=UVttcFcXqIOEqxyZ)
+* [Anthropic Documentation: Using MCP with Claude](https://docs.anthropic.com/claude/docs/model-context-protocol)
+* [Reddit demo: Integrating Claude and Github with MCP](https://www.reddit.com/r/ClaudeAI/comments/1ixuiih/showed_off_claude_37_sonnet_in_a_vibe_sesh_to_my/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button)
+* [Article: RAG vs MCP Deep Dive](https://example.com/rag-vs-mcp-article)

@@ -1,4 +1,8 @@
+import type { Metadata } from "next";
+
 import Link from "next/link";
+import Image from "next/image";
+
 import {
   Card,
   CardContent,
@@ -9,7 +13,17 @@ import {
 import { Badge } from "~/components/ui/badge";
 import SiteShell from "../site-shell";
 import { getAllBlogPostsMeta } from "./helper";
-import Image from "next/image";
+
+export const metadata = {
+  title: "Blog | Fawwaz Abdurrahim",
+  description:
+    "Thoughts on software development, random musings, and everything in between.",
+  openGraph: {
+    title: "Blog | Fawwaz Abdurrahim",
+    description:
+      "Thoughts on software development, random musings, and everything in between.",
+  },
+} satisfies Metadata;
 
 const Blog = async () => {
   const blogPosts = await getAllBlogPostsMeta();
@@ -23,8 +37,11 @@ const Blog = async () => {
               BLOG
             </h1>
             <p className="text-muted-foreground text-lg md:text-xl max-w-2xl">
-              Thoughts on design, creativity, and building things that matter.
-              Unfiltered perspectives on the intersection of art and technology.
+              Thoughts on software development, random musings, and everything
+              in between.
+            </p>
+            <p className="text-muted-foreground text-sm mt-2">
+              (Just a random collection of articles, thoughts, notes, and ideas)
             </p>
           </section>
 
@@ -38,7 +55,7 @@ const Blog = async () => {
               >
                 <Card className="rounded-none bg-background border-2 border-foreground transition-all duration-300 hover:-translate-x-1 hover:-translate-y-1 hover:shadow-brutalist h-full">
                   <div className="aspect-video bg-muted border-b-2 border-foreground">
-                    <Image 
+                    <Image
                       src={post.thumbnail}
                       width={650}
                       height={650}

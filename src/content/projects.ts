@@ -1,63 +1,39 @@
-const projects = [
+interface Project {
+  title: string;
+  description: string;
+  tech: string[];
+  image: string;
+  github: string;
+  live: string;
+}
+
+const projects: Project[] = [
   {
-    title: "SAAS DASHBOARD",
+    title: "Artopologi",
     description:
-      "Full-stack SaaS platform with AI-powered analytics and real-time data visualization.",
-    tech: ["React", "Node.js", "PostgreSQL", "AI/ML"],
-    image:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop&crop=center",
-    github: "#",
-    live: "#",
+      "A curated art marketplace enabling artists to showcase and sell their work locally. Each artwork is backed by an NFT-based Certificate of Authenticity for provenance and security.",
+    tech: ["Next.js", "Node.js", "NFT", "Web3"],
+    image: "/showcase/artopologi-thumb.png",
+    github: "https://github.com/Artopologi",
+    live: "https://artopologi.com",
   },
   {
-    title: "AI CHAT INTERFACE",
+    title: "KDEI Taipei Chatbot",
     description:
-      "Modern chat application with custom AI models and real-time messaging capabilities.",
-    tech: ["TypeScript", "Python", "WebSocket", "OpenAI"],
-    image:
-      "https://images.unsplash.com/photo-1577563908411-5077b6dc7624?w=800&h=600&fit=crop&crop=center",
-    github: "#",
-    live: "#",
+      "Chatbot for KDEI Taipei (Unofficial Indonesia Taiwan embassy) using Retrieval Augmented Generation (RAG) from WhatsApp hotline data.",
+    tech: ["TypeScript", "Python", "Qdrant", "OpenAI"],
+    image: "/showcase/kdei-taipei-chatbot.png",
+    github: "https://github.com/fwwz-id/ict-rag-ui",
+    live: "https://chatbot-kdei.vercel.app/",
   },
   {
-    title: "E-COMMERCE PLATFORM",
+    title: "React Coinbase",
     description:
-      "Headless e-commerce solution with advanced search and payment integration.",
-    tech: ["Next.js", "Stripe", "GraphQL", "Prisma"],
-    image:
-      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=600&fit=crop&crop=center",
-    github: "#",
-    live: "#",
-  },
-  {
-    title: "MOBILE FINTECH APP",
-    description:
-      "Cross-platform financial application with biometric authentication and real-time transactions.",
-    tech: ["Kotlin", "React Native", "Firebase", "Blockchain"],
-    image:
-      "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&h=600&fit=crop&crop=center",
-    github: "#",
-    live: "#",
-  },
-  {
-    title: "DATA VISUALIZATION TOOL",
-    description:
-      "Interactive dashboard for complex data analysis with custom charting solutions.",
-    tech: ["D3.js", "Python", "FastAPI", "Docker"],
-    image:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop&crop=center",
-    github: "#",
-    live: "#",
-  },
-  {
-    title: "BLOCKCHAIN EXPLORER",
-    description:
-      "Real-time blockchain data explorer with advanced search and analytics features.",
-    tech: ["Web3", "Ethereum", "React", "Node.js"],
-    image:
-      "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=800&h=600&fit=crop&crop=center",
-    github: "#",
-    live: "#",
+      "Simple demo on how do implement Websocket on ReactJs",
+    tech: ["React.js", "Coinbase", "Websocket"],
+    image: "/showcase/react-coinbase.png",
+    github: "https://github.com/fwwz-id/react-websocket-coinbase",
+    live: "https://react-websocket-coinbase.vercel.app/",
   },
 ];
 

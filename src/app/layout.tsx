@@ -22,7 +22,8 @@ const jetbrains_mono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: "Fawwaz Abdurrahim | Homepage",
-  description: "FWWZ — Creative Developer: AI Engineer × Full-Stack Developer",
+  description:
+    "fwwz-id — Creative Developer: AI Engineer × Full-Stack Developer",
 };
 
 export default function RootLayout({

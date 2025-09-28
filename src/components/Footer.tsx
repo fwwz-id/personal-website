@@ -1,22 +1,23 @@
 "use client";
 
 import { Github, Linkedin, ExternalLink } from "lucide-react";
+import Logo from "./Logo";
 
 const Footer = () => {
   const socialLinks = [
     {
       name: "LinkedIn",
-      url: "https://linkedin.com/in/fwwz",
+      url: "https://linkedin.com/in/fwwz-id",
       icon: Linkedin
     },
     {
       name: "GitHub", 
-      url: "https://github.com/fwwz",
+      url: "https://github.com/fwwz-id",
       icon: Github
     },
     {
       name: "Upwork",
-      url: "https://upwork.com/freelancers/fwwz", 
+      url: "https://www.upwork.com/freelancers/~0148ac91c35a54f2cd?mp_source=share", 
       icon: ExternalLink
     }
   ];
@@ -26,14 +27,12 @@ const Footer = () => {
       <div className="container mx-auto px-6">
         <div className="flex flex-col md:flex-row items-center justify-between gap-8">
           {/* Logo */}
-          <div className="font-grotesk font-bold text-2xl uppercase tracking-tight">
-            FWWZ
-          </div>
+          <Logo />
 
           {/* Built with */}
           <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8">
             <p className="font-mono text-sm text-muted-foreground">
-              © fwwz — built with React, Tailwind & lots of ☕
+              © Fawwaz — built with React, Tailwind & lots of ☕
             </p>
             
             {/* Social Links */}

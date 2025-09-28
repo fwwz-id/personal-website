@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import ThemeToggle from "./ThemeToggle";
+import Logo from "./Logo";
 
 const Navigation = () => {
   const router = useRouter();
@@ -31,7 +32,7 @@ const Navigation = () => {
             onClick={() => scrollTo("hero")}
             className="font-grotesk font-bold text-xl uppercase tracking-tight hover:text-accent transition-colors"
           >
-            FWWZ
+            <Logo />
           </button>
 
           {/* Desktop Menu */}
@@ -48,7 +49,7 @@ const Navigation = () => {
               ))}
               <Link
                 href="/blog"
-                className="font-grotesk font-medium text-sm uppercase tracking-wide hover:text-accent transition-colors electric-hover px-4 py-2"
+                className="font-grotesk font-medium text-sm uppercase tracking-wide hover:text-accent duration-0 transition-colors electric-hover px-4 py-2"
               >
                 BLOG
               </Link>
@@ -80,7 +81,7 @@ const Navigation = () => {
               ))}
               <Link
                 href="/blog"
-                className="font-grotesk font-medium text-lg uppercase tracking-wide hover:text-accent transition-colors text-left"
+                className="font-grotesk font-medium text-lg uppercase tracking-wide duration-0 hover:text-accent transition-colors text-left"
               >
                 BLOG
               </Link>

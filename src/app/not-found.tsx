@@ -44,8 +44,8 @@ export default function NotFound() {
             </h2>
             <p className="text-muted-foreground text-lg font-mono">
               The page{" "}
-              <span className="text-accent font-bold">"{location}"</span>{" "}
-              doesn't exist
+              <span className="text-accent font-bold">&quot;{location}&quot;</span>{" "}
+              doesn&apos;t exist
             </p>
             <p className="text-muted-foreground max-w-md mx-auto">
               It might have been moved, deleted, or you entered the wrong URL.

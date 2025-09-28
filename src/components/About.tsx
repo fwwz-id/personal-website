@@ -2,52 +2,15 @@ import { useEffect, useRef } from "react";
 import SplitType from "split-type";
 import gsap from "gsap";
 
+import about from "~/content/about";
+
 const About = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const skillsRef = useRef<HTMLDivElement>(null);
   const timelineRef = useRef<HTMLDivElement>(null);
-  const skills = [
-    "TypeScript",
-    "Python",
-    "Go",
-    "React",
-    "Next.js",
-    "Node.js",
-    "AI/ML",
-    "PostgreSQL",
-    "MongoDB",
-    "Docker",
-    "AWS",
-    "GCP",
-    "Web3",
-    "GraphQL",
-    "REST APIs",
-  ];
 
-  const timeline = [
-    {
-      year: "2025",
-      role: "SaaS Entrepreneur",
-      company: "Independent Projects",
-      description:
-        "Building next-generation SaaS applications with AI integration",
-    },
-    {
-      year: "2023",
-      role: "Senior Full-Stack Developer",
-      company: "RWID Technology",
-      description:
-        "Led development of enterprise applications and AI-powered solutions",
-    },
-    {
-      year: "2019",
-      role: "Creative Developer",
-      company: "Artopologi",
-      description:
-        "Crafted digital experiences and interactive web applications",
-    },
-  ];
+  const { skills, timeline } = about;
 
   useEffect(() => {
     if (typeof window === "undefined") {
@@ -184,7 +147,7 @@ const About = () => {
 
             <div className="space-y-6 text-lg leading-relaxed fade-in-up stagger-1">
               <p>
-                I'm a creative developer who bridges the gap between design and
+                I&apos;m a creative developer who bridges the gap between design and
                 technology. With expertise in full-stack development and AI
                 integration, I craft digital experiences that are both beautiful
                 and functional.
@@ -193,7 +156,7 @@ const About = () => {
               <p>
                 My journey spans from creative agencies to enterprise tech,
                 always focusing on pushing boundaries and delivering exceptional
-                user experiences. Currently, I'm building innovative SaaS
+                user experiences. Currently, I&apos;m building innovative SaaS
                 solutions that leverage cutting-edge AI technologies.
               </p>
             </div>
@@ -226,25 +189,58 @@ const About = () => {
               {timeline.map((item, index) => (
                 <div key={index} className="timeline-item relative">
                   <div className="flex items-start gap-6">
-                    <div className="flex-shrink-0 w-16 h-16 bg-foreground text-background flex items-center justify-center brutalist-card font-grotesk font-bold text-sm">
-                      {item.year}
+                    <div className="flex-shrink-0 w-20 h-20 bg-foreground text-background flex flex-col items-center justify-center brutalist-card font-grotesk font-bold text-xs">
+                      <span>{item.startYear}</span>
+                      <span className="text-[8px] opacity-60">-</span>
+                      <span className="text-[10px]">{item.endYear}</span>
                     </div>
 
                     <div className="flex-grow">
-                      <h4 className="font-grotesk font-bold text-lg uppercase tracking-tight mb-1">
-                        {item.role}
-                      </h4>
-                      <p className="text-accent font-medium mb-2">
-                        {item.company}
-                      </p>
-                      <p className="text-muted-foreground leading-relaxed">
+                      <div className="flex items-start justify-between mb-2">
+                        <h4 className="font-grotesk font-bold text-lg uppercase tracking-tight">
+                          {item.role}
+                        </h4>
+                        <div className="flex items-center gap-2 text-xs">
+                          <span className="px-2 py-1 bg-accent/20 text-accent rounded font-mono uppercase tracking-wide">
+                            {item.workType}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 mb-3">
+                        <p className="text-accent font-medium">
+                          {item.company}
+                        </p>
+                        <span className="hidden sm:block text-muted-foreground">
+                          •
+                        </span>
+                        <p className="text-sm text-muted-foreground">
+                          {item.location}
+                        </p>
+                      </div>
+
+                      <p className="text-muted-foreground leading-relaxed mb-4">
                         {item.description}
                       </p>
+
+                      <div className="space-y-2">
+                        {item.achievements.map(
+                          (achievement, achievementIndex) => (
+                            <div
+                              key={achievementIndex}
+                              className="flex items-start gap-2 text-sm text-foreground/80"
+                            >
+                              <span className="w-1 h-1 bg-accent rounded-full mt-2.5 flex-shrink-0"></span>
+                              <span>{achievement}</span>
+                            </div>
+                          )
+                        )}
+                      </div>
                     </div>
                   </div>
 
                   {index < timeline.length - 1 && (
-                    <div className="ml-8 mt-4 h-8 w-0.5 bg-foreground/20"></div>
+                    <div className="absolute left-10 top-14 w-0.5 h-full bg-gradient-to-b from-foreground/10 to-transparent"></div>
                   )}
                 </div>
               ))}

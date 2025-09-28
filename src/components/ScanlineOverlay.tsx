@@ -50,7 +50,9 @@ export default function ScanlineOverlay({
     backgroundImage: pattern,
     // Use CSS var to feed keyframes a dynamic pixel distance per cycle
     // Drift is extremely subtle; users sensitive to motion won't notice (and it's disabled via media query)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ["--scanline-drift" as any]: `${Math.max(0, driftPx)}px`,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ["--scanline-duration" as any]: `${Math.max(1, driftDurationSec)}s`,
   };
 

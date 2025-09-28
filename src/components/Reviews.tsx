@@ -126,7 +126,7 @@ const Reviews = () => {
           </h2>
           <div className="h-1 w-24 bg-foreground mx-auto mb-6"></div>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Don't just take my word for it. Here's what my clients say about
+            Don&apos;t just take my word for it. Here&apos;s what my clients say about
             working together.
           </p>
         </div>
@@ -155,7 +155,7 @@ const Reviews = () => {
 
               {/* Quote */}
               <blockquote className="text-foreground mb-6 font-grotesk leading-relaxed">
-                "{testimonial.quote}"
+                &quot;{testimonial.quote}&quot;
               </blockquote>
 
               {/* Author Info */}

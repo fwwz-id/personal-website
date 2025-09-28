@@ -248,10 +248,49 @@
     padding: 1.25rem 1.5rem; /* more breathing room */
     margin-top: 1.5rem;
     margin-bottom: 1.5rem; /* extra vertical spacing */
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto; /* horizontal scroll on small screens */
+    -webkit-overflow-scrolling: touch;
+    border: 2px solid hsl(var(--foreground));
+    box-shadow: var(--shadow-brutalist);
+    background: hsl(var(--card));
   }
   /* If a language badge is present, add bottom padding so it doesn't overlap */
   article.prose pre.has-code-lang {
     padding-bottom: 2.25rem;
+  }
+  /* Ensure code inside pre lays out naturally and can overflow horizontally */
+  article.prose pre code {
+    display: inline-block;
+    min-width: 100%;
+    white-space: pre;
+    font-family: var(--font-mono);
+  }
+
+  /* Inline code (not inside pre) — brutalist chip */
+  article.prose :not(pre) > code {
+    display: inline-block;
+    padding: 0.1rem 0.35rem;
+    border: 2px solid hsl(var(--foreground));
+    background: hsl(var(--muted));
+    color: hsl(var(--foreground));
+    font-family: var(--font-mono);
+    font-size: 0.95em;
+    line-height: 1.15;
+    box-shadow: var(--shadow-brutalist);
+  }
+  /* Inline code within links should not change underline thickness */
+  article.prose a > code {
+    text-decoration: none;
+  }
+
+  /* Dotted underline link styling fallback (MDX adds a component too) */
+  article.prose a {
+    text-decoration-line: underline;
+    text-decoration-style: dotted;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
   }
 
   /* Copy button styling; shown on hover only */
@@ -260,7 +299,8 @@
     pointer-events: none; /* enable only on hover */
     transform: translateY(-2px) scale(0.98);
   }
-  pre:hover > .code-copy-btn {
+  pre:hover > .code-copy-btn,
+  .code-block-wrapper:hover .code-copy-btn {
     opacity: 1 !important;
     pointer-events: auto;
     transform: translateY(0) scale(1);
@@ -270,6 +310,11 @@
   .code-lang {
     box-shadow: var(--shadow-brutalist);
     pointer-events: none; /* don't block text selection */
+  }
+  /* Ensure wrapper for overlays keeps buttons/badges fixed while pre scrolls */
+  .code-block-wrapper {
+    width: 100%;
+    position: relative;
   }
   /* Grainy gradient: subtle gradient + fine-grain tile */
   .grainy-gradient {

@@ -88,13 +88,13 @@ const Contact = () => {
             ref={titleRef}
             className="brutalist-heading text-5xl md:text-7xl lg:text-8xl mb-8"
           >
-            <span>LET'S WORK</span>
+            <span>LET&apos;S WORK</span>
             <br />
             <span className="electric-text">TOGETHER</span>
           </h2>
 
           <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto mb-12 fade-in-up stagger-1">
-            Ready to bring your vision to life? Let's discuss your next project
+            Ready to bring your vision to life? Let&apos;s discuss your next project
             and create something exceptional together.
           </p>
 
@@ -147,7 +147,7 @@ const Contact = () => {
               <span className="mx-8">AVAILABLE FOR PROJECTS •</span>
               <span className="mx-8">OPEN TO COLLABORATE •</span>
               <span className="mx-8">READY TO BUILD •</span>
-              <span className="mx-8">LET'S CREATE TOGETHER •</span>
+              <span className="mx-8">LET&apos;S CREATE TOGETHER •</span>
               <span className="mx-8">CRAFTING DIGITAL EXPERIENCES •</span>
               <span className="mx-8">TURNING IDEAS INTO REALITY •</span>
             </Marquee>

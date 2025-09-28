@@ -143,7 +143,8 @@ export async function getAllBlogPosts(): Promise<BlogPost[]> {
 // Only metadata (omit heavy content) for listings
 export async function getAllBlogPostsMeta(): Promise<BlogPostMeta[]> {
   const posts = await getAllBlogPosts();
-  return posts.map(({ content: _c, ...meta }) => meta);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  return posts.map(({ content, ...meta }) => meta);
 }
 
 export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> {
@@ -156,6 +157,8 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> 
     }
   } catch {
     // ignore and fall back to scanning
+    console.warn(`Blog post not found at direct path: ${directPath}`);
+    return null;
   }
 
   const posts = await getAllBlogPosts();
