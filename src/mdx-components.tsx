@@ -77,6 +77,23 @@ const Caption = ({
   />
 );
 
+// Brutalist blockquote for MDX
+const Blockquote = ({
+  className,
+  ...props
+}: ComponentPropsWithoutRef<"blockquote">) => (
+  <blockquote
+    className={cn(
+      // brutalist black & white card look
+      "relative my-6 brutalist-card p-5 md:p-6 font-grotesk leading-relaxed text-foreground",
+      // keep it upright, not italicized by defaults
+      "not-italic",
+      className
+    )}
+    {...props}
+  />
+);
+
 const components = {
   img: ({ alt, ...props }: ImageProps) => (
     <Image
@@ -120,6 +137,7 @@ const components = {
   th: (props) => <Th {...props} />,
   td: (props) => <Td {...props} />,
   caption: (props) => <Caption {...props} />,
+  blockquote: (props) => <Blockquote {...props} />,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   pre: (props) => <CodeBlock {...(props as any)} />,
 } satisfies MDXComponents;

@@ -150,10 +150,24 @@
 
   html {
     scroll-behavior: smooth;
+    /* Make caret match theme foreground for brutalist contrast */
+    caret-color: hsl(var(--foreground));
   }
 
   button {
     cursor: pointer;
+  }
+
+  /* Brutalist selection: invert foreground/background per theme */
+  ::selection {
+    background-color: hsl(var(--foreground));
+    color: hsl(var(--background));
+    text-shadow: none;
+  }
+  ::-moz-selection {
+    background-color: hsl(var(--foreground));
+    color: hsl(var(--background));
+    text-shadow: none;
   }
 }
 
@@ -237,9 +251,9 @@
     text-transform: uppercase;
     letter-spacing: -0.01em;
   }
-  article.prose h1 { margin-top: 3rem; margin-bottom: 1.25rem; }
-  article.prose h2 { margin-top: 2.5rem; margin-bottom: 1rem; }
-  article.prose h3 { margin-top: 2rem; margin-bottom: 0.75rem; }
+  article.prose h1 { margin-top: 3rem; margin-bottom: 1.25rem; font-size: xx-large;}
+  article.prose h2 { margin-top: 2.5rem; margin-bottom: 1rem; font-size: x-large;}
+  article.prose h3 { margin-top: 2rem; margin-bottom: 0.75rem; font-size: larger; }
   article.prose p { margin-bottom: 1rem; }
   article.prose ul { list-style: disc; margin-left: 1.25rem; margin-bottom: 1rem; }
   article.prose ol { list-style: decimal; margin-left: 1.25rem; margin-bottom: 1rem; }
