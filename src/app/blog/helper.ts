@@ -5,6 +5,8 @@ import path from 'node:path';
 import fs from 'node:fs/promises';
 import matter from 'gray-matter';
 
+export type BlogLanguage = 'en' | 'id';
+
 // Types describing blog frontmatter and parsed post
 export type BlogFrontmatter = {
   slug: string;
@@ -15,6 +17,7 @@ export type BlogFrontmatter = {
   thumbnail?: string;
   author: string;
   readTime: string; // sometimes present
+  lang?: BlogLanguage;
 };
 
 export type BlogPostMeta = {
@@ -26,6 +29,7 @@ export type BlogPostMeta = {
   thumbnail: string;
   author?: string;
   readTime: string; // normalized; computed if absent
+  lang: BlogLanguage;
   filepath: string; // Absolute path on disk
 };
 
@@ -112,6 +116,7 @@ async function parseFile(filePath: string): Promise<BlogPost> {
   const thumbnail = fm.thumbnail || 'https://images.unsplash.com/photo-1668681919287-7367677cdc4c?q=80&w=650&auto=format&fit=crop'
   const author = typeof fm.author === 'string' ? fm.author : undefined;
   const readTime = fm.readTime.toString().trim() || computeReadTime(content ?? '');
+  const lang: BlogLanguage = fm.lang === 'id' ? 'id' : 'en';
 
   return {
     slug,
@@ -122,6 +127,7 @@ async function parseFile(filePath: string): Promise<BlogPost> {
     thumbnail,
     author,
     readTime,
+    lang,
     filepath: path.resolve(filePath),
     content: content ?? '',
   };

@@ -7,6 +7,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
 
 import { ThemeProvider } from "~/providers/ThemeProvider";
+import { LanguageProvider } from "~/providers/LanguageProvider";
 
 const space_grotesk = Space_Grotesk({
   weight: ["400", "600", "700"],
@@ -44,7 +45,9 @@ export default function RootLayout({
           enableSystem={false}
           disableTransitionOnChange={false}
         >
-          {children}
+          <LanguageProvider>
+            {children}
+          </LanguageProvider>
         </ThemeProvider>
         <SpeedInsights />
         <Analytics />
