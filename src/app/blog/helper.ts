@@ -18,6 +18,7 @@ export type BlogFrontmatter = {
   author: string;
   readTime: string; // sometimes present
   lang?: BlogLanguage;
+  contentId?: string; // links translations together
 };
 
 export type BlogPostMeta = {
@@ -30,6 +31,7 @@ export type BlogPostMeta = {
   author?: string;
   readTime: string; // normalized; computed if absent
   lang: BlogLanguage;
+  contentId?: string;
   filepath: string; // Absolute path on disk
 };
 
@@ -117,6 +119,7 @@ async function parseFile(filePath: string): Promise<BlogPost> {
   const author = typeof fm.author === 'string' ? fm.author : undefined;
   const readTime = fm.readTime.toString().trim() || computeReadTime(content ?? '');
   const lang: BlogLanguage = fm.lang === 'id' ? 'id' : 'en';
+  const contentId = typeof fm.contentId === 'string' ? fm.contentId.trim() : undefined;
 
   return {
     slug,
@@ -128,6 +131,7 @@ async function parseFile(filePath: string): Promise<BlogPost> {
     author,
     readTime,
     lang,
+    contentId,
     filepath: path.resolve(filePath),
     content: content ?? '',
   };
@@ -168,4 +172,19 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> 
 
   const posts = await getAllBlogPosts();
   return posts.find((p) => p.slug === slug) ?? null;
+}
+
+// Get all translations (different language versions) for a given content ID
+export async function getTranslationsByContentId(contentId: string): Promise<BlogPostMeta[]> {
+  const posts = await getAllBlogPostsMeta();
+  return posts.filter((p) => p.contentId === contentId);
+}
+
+// Get the other language version of a post
+export async function getAlternateLanguagePost(
+  contentId: string,
+  currentLang: BlogLanguage
+): Promise<BlogPostMeta | null> {
+  const translations = await getTranslationsByContentId(contentId);
+  return translations.find((p) => p.lang !== currentLang) ?? null;
 }

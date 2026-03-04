@@ -6,8 +6,9 @@ import { notFound } from "next/navigation";
 
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
+import BlogLanguageToggle from "~/components/BlogLanguageToggle";
 
-import { getAllBlogPostsMeta, getBlogPostBySlug } from "../helper";
+import { getAllBlogPostsMeta, getBlogPostBySlug, getAlternateLanguagePost } from "../helper";
 
 export const revalidate = false;
 export const dynamic = "force-static";
@@ -58,6 +59,12 @@ export default async function BlogPostPage({
       `~/content/blog/${slug}.mdx`
     );
 
+    // Get alternate language version if available
+    const post = await getBlogPostBySlug(slug);
+    const alternateLangPost = post?.contentId
+      ? await getAlternateLanguagePost(post.contentId, post.lang)
+      : null;
+
     return (
       <section className="pt-32 pb-16">
         <div className="container mx-auto px-6 max-w-4xl">
@@ -71,6 +78,16 @@ export default async function BlogPostPage({
               Back to Blog
             </Button>
           </Link>
+
+          {/* Language Toggle */}
+          {alternateLangPost && (
+            <BlogLanguageToggle
+              alternateLangPost={{
+                slug: alternateLangPost.slug,
+                lang: alternateLangPost.lang,
+              }}
+            />
+          )}
 
           {/* Article Header */}
           <header className="mb-12">
