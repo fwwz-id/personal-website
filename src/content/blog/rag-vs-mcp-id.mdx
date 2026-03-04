@@ -1,0 +1,169 @@
+---
+slug: rag-vs-mcp-id
+title: "RAG vs MCP: Ngerti Bedanya"
+description: "Panduan praktis tentang Retrieval-Augmented Generation (RAG) dan Model Context Protocol (MCP), apa itu, bedanya gimana, dan cara kerjanya bareng sama contoh."
+date: 2025-09-27
+author: Fawwaz Abdurrahim
+readTime: 7 min baca
+lang: id
+contentId: rag-vs-mcp
+thumbnail: https://images.unsplash.com/photo-1668450433152-e56d7e8fe4ee?q=80&w=650&auto=format&fit=crop
+tags: ["RAG", "MCP", "LLM", "AI Agents", "Chatbot"]
+---
+
+## Intro
+
+Sistem AI modern tuh sering nemuin dua masalah besar:
+1. Gimana cara kasih jawaban yang akurat based on data asli.
+2. Gimana cara interaksi yang aman sama tool dan API luar.
+
+Dua konsep ini jadi kuncinya: **Retrieval-Augmented Generation (RAG)** dan **Model Context Protocol (MCP)**.
+Mereka related tapi ngisi problem yang beda. Ngerti peran masing-masing bakal ngebantu lo paham gimana cara bikin agen AI sekarang.
+
+## RAG itu apa sih?
+
+**Retrieval-Augmented Generation (RAG)** itu teknik buat ngejagain jawaban AI biar lebih akurat, caranya ngambil info yang relevan dari knowledge base luar—misalnya dokumen, database, atau API—sebelum jawab.
+
+Dengan gini, AI bisa go beyond data training yang statis, ngurangin halusinasi, dan kasih jawaban yang up-to-date plus kaya konteks.
+
+### Kenapa RAG penting banget?
+
+LLM emang powerful, tapi dia cuma bisa jawab berdasarkan apa yang dilatihin doang. Nah, pake RAG, lo bisa connect dia ke data sendiri: kebijakan kantor, paper riset, atau dokumentasi customer. Ini bikin dia way more useful buat real-world scenarios.
+
+## MCP itu apa sih?
+
+**Model Context Protocol (MCP)** itu **protokol komunikasi standar** yang nentuin gimana cara aplikasi AI (client) bisa interaksi sama service luar (server).
+
+Ini bukan model atau teknik, tapi set of rules. MCP make JSON-RPC (2.0) buat handle request dan response, yang artinya setiap interaksi antara LLM (client) sama server MCP ikut format JSON yang terstruktur buat remote procedure call.
+
+**Contoh request dan response JSON-RPC 2.0:**
+```json
+// Request: Claude (MCP client) minta server MCP GitHub buat bikin pull request
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "create_pull_request",
+  "params": {
+    "repo": "fwwz/awesome-app",
+    "branch": "feature-x",
+    "title": "Tambah fitur baru"
+  }
+}
+
+// Response: Server MCP GitHub balikin hasilnya
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "url": "https://github.com/fwwz/awesome-app/pull/42",
+    "status": "success"
+  }
+}
+```
+
+In other words:
+- **RAG itu soal konteks**: ngambil pengetahuan yang relevan.
+- **MCP itu soal konektivitas**: kasih cara yang aman dan standar buat akses resource luar.
+
+## Bedanya di mana? Cekidot
+
+| Fitur | RAG (Retrieval-Augmented Generation) | MCP (Model Context Protocol) |
+| :--- | :--- | :--- |
+| **Konsep Inti** | Teknik buat kasih dasar jawaban LLM sama data luar. | Protokol buat connect LLM ke tool, API, atau data source luar. |
+| **Tujuan Utama** | Ngeboost akurasi dan ngurangin halusinasi. | Kasih bridge yang aman, extensible, dan standar antara LLM sama sistem luar. |
+| **Cara Kerja** | 1. Ambil dokumen relevan dari knowledge base. <br /> 2. Add ke context model. <br /> 3. Generate jawaban yang grounded. | 1. LLM (client) kirim request JSON-RPC. <br /> 2. Server MCP panggil service/API di belakangnya. <br /> 3. Server balikin hasil ke client. |
+| **Analogi** | Siswa nulis laporan: ke perpustakaan, baca referensi, baru tulis. | Adaptor daya universal: connect aman ke stopkontak apa aja (tool atau API). |
+| **Hubungan** | RAG itu pattern yang bisa make MCP sebagai fondasinya. | MCP itu framework yang bisa enable RAG dan banyak aplikasi lainnya. |
+
+## Kerja Bareng: Contohnya Gini
+
+Bayangin ada AI assistant yang bisa jawab pertanyaan tentang dokumentasi kantor lo.
+
+**Tanpa MCP**
+Lo harus nulis custom code yang connect AI langsung ke vector database. Ini brittle, susah di-maintain, dan rawan security wise.
+
+**Pake MCP**
+```txt
+User: "Apa kebijakan liburan kita?"
+
+Claude (MCP client):
+  → kirim request { "action": "search_docs", "params": {"query": "kebijakan liburan"} }
+
+MCP Documentation Server:
+  → query knowledge base internal
+  → balikin dokumen kebijakan HR yang relevan
+
+Claude:
+  → pake context yang di-return buat generate jawaban yang grounded
+```
+
+Nah ini RAG system yang di-build di atas MCP.
+
+## Contoh Beneran: GitHub dan Claude
+
+MCP nggak cuma buat RAG doang. Misalnya, kalau lo mau Claude buka pull request di GitHub:
+
+```txt
+Claude (MCP client):
+  → kirim request { "action": "create_pull_request", "params": {
+      "repo": "fwwz/awesome-app",
+      "branch": "feature-x",
+      "title": "Tambah fitur baru"
+    }}
+
+MCP GitHub Server:
+  → translate request jadi API call GitHub REST
+  → otentikasi secara aman
+  → bikin pull request
+  → balikin link PR
+
+Claude:
+  → jawab "Aku udah buka pull request nih: <link>"
+```
+
+Daripada nulis integrasi custom buat tiap LLM, MCP kasih interface standar yang bisa dipake model apa aja yang compatible. Contohnya, begitu lo punya server GitHub MCP, Claude, GPT-4, atau LLM lain yang MCP-enabled bisa interaksi sama GitHub lewat endpoint yang sama.
+
+Lo bisa liat demo praktisnya di [post Reddit ini](https://www.reddit.com/r/ClaudeAI/comments/1ixuiih/showed_off_claude_37_sonnet_in_a_vibe_sesh_to_my/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button), di mana Claude interaksi lancar sama API GitHub lewat MCP.
+
+Atau lo bisa make model lokal pake Ollama. [Artikel ini](https://medium.com/data-science-in-your-pocket/model-context-protocol-mcp-using-ollama-e719b2d9fd7a) kasih panduan step-by-step detail tentang cara connect Ollama sama server MCP.
+
+Standarisasi ini nunjukin dua benefit utama MCP:
+1. **Interoperabilitas**: Tulis sekali, make sama LLM compatible apa aja
+2. **Keamanan**: Semua interaksi API di-handle sama server MCP, nggak langsung sama LLM
+
+## Use Case Praktis MCP
+
+Server MCP bisa expose banyak tool beda:
+
+* **Tool Booking Penerbangan**: interaksi sama beberapa airline lewat satu interface
+* **Tool Kalkulator**: pastiin matematika dieksekusi bener
+* **Tool Cuaca**: ambil update cuaca live secara aman
+* **Tool Kalender**: baca dan update jadwal
+* **Tool Filesystem**: explore dan edit file aman di sandbox
+
+Dengan ngabstraksi beda API, MCP bikin agent AI bisa operate lebih kayak automation script canggih yang bisa mikir.
+
+## Ringkasan
+
+* **RAG** itu teknik buat grounding respons LLM sama data luar.
+* **MCP** itu protokol yang standarin cara LLM connect ke tool dan data.
+* Bersama-sama, mereka enable AI agent yang akurat, extensible, dan aman.
+* Meskipun REST API udah ada, MCP introduce struktur konsisten yang bisa dimengerti secara native sama LLM.
+
+## Penutup
+
+RAG dan MCP itu bukan ide yang bersaing, mereka saling melengkapi.
+
+* RAG fokus ke *apa* yang dilakuin model: ningkatin jawaban dengan konteks yang bener.
+* MCP fokus ke *gimana* model connect: aman dan dengan cara yang standar.
+
+Makin berkembangnya AI agent, bakal makin banyak tuh peran MCP buat connect LLM ke dunia nyata, dengan RAG sebagai salah satu aplikasi terpentingnya.
+
+## Referensi
+
+* [Situs Resmi Model Context Protocol](https://modelcontextprotocol.io/)
+* [Repositori GitHub MCP](https://github.com/modelcontextprotocol)
+* [YouTube: Intro MCP sama Lab Environment (KodeKloud)](https://youtu.be/RhTiAOGwbYE?si=UVttcFcXqIOEqxyZ)
+* [Dokumentasi Anthropic: Make MCP sama Claude](https://docs.anthropic.com/claude/docs/model-context-protocol)
+* [Demo Reddit: Integrasi Claude sama Github pake MCP](https://www.reddit.com/r/ClaudeAI/comments/1ixuiih/showed_off_claude_37_sonnet_in_a_vibe_sesh_to_my/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button)
+* [Medium: Model Context Protocol (MCP) pake Ollama](https://medium.com/data-science-in-your-pocket/model-context-protocol-mcp-using-ollama-e719b2d9fd7a)
